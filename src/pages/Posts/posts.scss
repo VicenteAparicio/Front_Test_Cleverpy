@@ -5,7 +5,30 @@
     align-items: center;
     width: 100%;
 }
+.adminOptions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1em;
 
+    .getButton {
+        margin-right:  1em;
+        padding: 1em;
+        background-color: $backcolor;
+        color: white;
+        cursor: pointer;
+        &:hover{
+            background-color: $hovercolor;
+        }
+    }
+
+    .userPosts{
+        all: unset;
+        border: .1em solid $backcolor;
+        padding: .9em;
+        width: 4em;
+    }
+}
 .boxPost{
     display: flex;
     flex-direction: row;
@@ -17,41 +40,61 @@
 .card{
     display: flex;
     flex-direction: column;
-    width: 10em;
+    width: 15em;
     padding: 1em;
-    background-color: red;
+    background-color: $backcolor;
     margin: 0 1em 1em 0;
-    color: white;
+
 
     .title {
         font-weight: bold;
+        color: white;
     }
+
+    .user {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1em;
+        width: 3em;
+        background-color: white;
+        border-radius: .5em;
+        font-size: .8em;
+        color: black;
+        cursor: pointer;
+        &:hover{
+            background-color: $hovercolor;
+            color: white;
+        }
+    }
+
+    .text{
+        color: white;
+    }
+    
+}
+
+.postInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 
-
-.getButton {
-    margin: 1em 0;
-    padding: 1em;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-    &:hover{
-        background-color: darkred;
-    }
-}
 
 .deleteButton{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 3em;
+    border-radius: .5em;
     padding: 1em;
-    margin-bottom: 1em;
+    font-size: .8em;
     background-color: white;
     cursor: pointer;
-    color: red;
+    color:black;
     &:hover{
-        background-color: darkred;
+        background-color: $hovercolor;
         color: white
     }
 }
