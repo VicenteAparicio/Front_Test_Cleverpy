@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import IPage from '../interfaces/page';
-import logging from '../config/logging';
+import IPage from '../../interfaces/page';
+import logging from '../../config/logging';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
 const AboutPage: React.FunctionComponent<IPage & RouteComponentProps<any>> = props => {

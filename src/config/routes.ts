@@ -1,7 +1,8 @@
 import IRoute from '../interfaces/route';
-import AboutPage from '../pages/about';
-import HomePage from '../pages/home';
-import Nav from '../components/Nav/nav';
+import AboutPage from '../pages/About/about';
+import PostsPage from '../pages/Posts/posts';
+import HomePage from '../pages/Home/home';
+// import Nav from '../components/Nav/nav';
 
 const routes: IRoute[] = [
     {
@@ -17,9 +18,9 @@ const routes: IRoute[] = [
         exact: true
     },
     {
-        path: '',
-        name: 'Nav',
-        component: Nav,
+        path: '/posts',
+        name: 'Posts Page',
+        component: PostsPage,
         exact: true
     },
 ]
