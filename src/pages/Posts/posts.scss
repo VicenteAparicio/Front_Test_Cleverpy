@@ -22,11 +22,12 @@
         }
     }
 
-    .userPosts{
+    .inputFilters{
         all: unset;
         border: .1em solid $backcolor;
         padding: .9em;
         width: 4em;
+        margin-right: 1em;
     }
 }
 .boxPost{
@@ -97,5 +98,8 @@
     &:hover{
         background-color: $hovercolor;
         color: white
+    }
+    &:focus{
+        background-color: red;
     }
 }

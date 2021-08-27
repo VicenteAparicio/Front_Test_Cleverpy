@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import IPage from '../../interfaces/page';
 import logging from '../../config/logging';
-import { domainToUnicode } from 'url';
 
 const PostsPage: React.FunctionComponent<IPage> = props => {
 
@@ -21,7 +20,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
     // HOOK TO DELIVER
     const [partition, setPartition] = useState<IPost[]|[]>([]);
-    // const [work, setWork] = useState<IPost[]|[]>([]);
+    const [work, setWork] = useState<IPost[]|[]>([]);
     
     useEffect(() => {
         logging.info(`Loading ${props.name}`);  
@@ -29,6 +28,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
     useEffect(()=>{
         fetchPosts();
+        workPosts();
     },[])
 
     // SET POSTS ON ORIGINAL HOOK
@@ -37,15 +37,15 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         setPost(res);
     }
 
-    const original = () => {
-        setFiltPost(post);
-        setPartition(post);
-    }
     // SET POSTS ON FILTER HOOK
-    const clean = () => {
-        setPartition(filtPost)
+    const filterCards = () => {
+        setFiltPost(post);
     }
     
+    // SET POSTS FROM FILTERED
+    const workPosts = () => {
+        setWork(filtPost);
+    }
 
     // DELETE POST
     const deletePost = (arg:any) => {
@@ -53,6 +53,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         setFiltPost(
             filtPost.filter((item)=>(item?.id !== arg))
         )
+        setPartition(filtPost)
     }
 
 
@@ -68,44 +69,32 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
 
 
-    const userPosts = (opt:string, value:any) => {
-        
-
-
-            switch(opt){
-                case "userId":
-                    setPartition(
-                        filtPost.filter((item)=>(item?.userId == value))
-                    )
-                    break;
-                case "postId":
-                    setPartition(
-                        filtPost.filter((item)=>(item?.id == value))
-                    )
-                    break;
-                default:
-                    clean();
-                    break;
-            }
-
+    const userPosts = (arg:any) => {
+        console.log(arg)
+        if (arg == '') {
+            setFiltPost(partition);
+        } else {
+            setFiltPost(partition);
+            setFiltPost(
+                filtPost.filter((item)=>(item?.userId == arg))
+            )
+        }
     }
 
     return (
         <div className="containerPost">
             <div className="adminOptions">
-                <div className="getButton" onClick={()=>original()}>ORIGINAL</div>     
-                <div className="getButton" onClick={()=>clean()}>UPDATE</div>     
-                <input className="inputFilters" type="text" name="userId" placeholder="User ID" onChange={(e)=>userPosts(e.target.name, e.target.value)}/>
-                <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>userPosts(e.target.name, e.target.value)}/>
+                <div className="getButton" onClick={()=>filterCards()}>ORIGINAL</div>   
+                <div className="getButton" onClick={()=>filterCards()}>FILTERS</div>   
+                <input className="userPosts" type="text" placeholder="User ID" defaultValue="" onChange={(e)=>userPosts(e.target.value)}/>
             </div> 
 
             <div className="boxPost">
 
-                {partition?.map((card, index)=>(
+                {filtPost?.map((card, index)=>(
                     <div className="card" key={index}>
                         <div className="postInfo">
-                            {/* <div className="user" onClick={()=>userPosts(card?.userId)}>{card?.userId}</div> */}
-                            <div className="user">{card?.userId}</div>
+                            <div className="user" onClick={()=>userPosts(card?.userId)}>{card?.userId}</div>
                             <div className="deleteButton" onClick={()=>deletePost(card?.id)}>DELETE</div>
                         </div>
                         <div className="cardInfo">
