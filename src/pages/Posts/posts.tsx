@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import IPage from '../../interfaces/page';
 import logging from '../../config/logging';
 
@@ -20,7 +20,10 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
     // HOOK TO DELIVER
     const [partition, setPartition] = useState<IPost[]|[]>([]);
-    // const [work, setWork] = useState<IPost[]|[]>([]);
+
+    // HOOK TO EDITION
+    const [edit, setEdit] = useState({title:'',body:''});
+    const [allowEdit, setAllowEdit] = useState<boolean>(false);
     
     useEffect(() => {
         logging.info(`Loading ${props.name}`);  
@@ -28,37 +31,8 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
     useEffect(()=>{
         fetchPosts();
-        // workPosts();
     },[])
 
-    // SET POSTS ON ORIGINAL HOOK
-    const fetchPosts = async () => {
-        const res = await getPosts()
-        setPost(res);
-    }
-
-    // SET POSTS ON FILTER HOOK
-    const filterCards = () => {
-        setFiltPost(post);
-    }
-    
-    // SET POSTS FROM FILTERED
-    // const workPosts = () => {
-    //     setWork(filtPost);
-    // }
-
-    // DELETE POST
-    const deletePost = (arg:any) => {
-        
-        setFiltPost(
-            filtPost.filter((item)=>(item?.id !== arg))
-        )
-        setPartition(filtPost)
-    }
-
-    
-
-    
 
     // GET POSTS FROM API
     const getPosts = async () => {
@@ -70,50 +44,137 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         }
     }
 
+    // SET POSTS ON ORIGINAL HOOK
+    const fetchPosts = async () => {
+        const res = await getPosts();
+        setPost(res);
+    }
 
+    // SET CLEVERPY TEST TO ORIGINAL VERSION
+    const original = () => {
+        setFiltPost(post);
+        setPartition(post);
+    }
 
-    const userPosts = (arg:any) => {
-        console.log(arg)
-        if (arg == '') {
-            setFiltPost(partition);
+    // SET UPDATE 
+    const update = () => {
+        setPartition(filtPost)
+    }
+    
+    // DELETE POST 
+    const deletePost = (arg:any) => {
+        setFiltPost(
+            filtPost.filter((item)=>(item?.id !== arg))
+        )
+    }
+
+    // FILTERS 
+    const filters = (opt:string, value:any) => {
+
+        // WHEN DELETE SEARCH CONTENT
+        if (value === ''){
+            update();
         } else {
-            setFiltPost(partition);
-            setFiltPost(
-                filtPost.filter((item)=>(item?.userId == arg))
-            )
+            switch(opt){                            // TO DO TITLE SEARCH???
+                case "userId":
+                    setPartition(
+                        filtPost.filter((item)=>(item?.userId == value))
+                    )
+                    break;
+                case "postId":
+                    setPartition(
+                        filtPost.filter((item)=>(item?.id == value))
+                    )
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    return (
-        <div className="containerPost">
-            <div className="adminOptions">
-                <div className="getButton" onClick={()=>filterCards()}>ORIGINAL</div>   
-                <div className="getButton" onClick={()=>filterCards()}>FILTERS</div>   
-                <input className="userPosts" type="text" placeholder="User ID" defaultValue="" onChange={(e)=>userPosts(e.target.value)}/>
-            </div> 
+    // HANDLER EDITION INPUTS
+    const edition = (e:any) => {
+        setEdit({...edit, [e.target.name]: e.target.value});
+    }
+    
+    // ACTIVATE EDITION MODE AND SEND SELECTED POST
+    const editPost = (id:number) => {
+        setAllowEdit(true);
+        setPartition(
+            filtPost.filter((item)=>(item?.id == id))
+        )
+    }
 
-            <div className="boxPost">
+    // SAVE EDITED POST
+    const saveEdit = (arg:number) => {
+        filtPost[arg].title = edit.title;
+        filtPost[arg].body = edit.body;
+        update();
+        setAllowEdit(false);
+    }
 
-                {filtPost?.map((card, index)=>(
+    const cancelEdit = () => {
+        setAllowEdit(false);
+    }
+
+    if (allowEdit === true) {
+
+        return (
+            <div className="containerEdition">
+                {partition?.map((card, index)=>(
                     <div className="card" key={index}>
                         <div className="postInfo">
-                            <div className="user" onClick={()=>userPosts(card?.userId)}>{card?.userId}</div>
-                            <div className="deleteButton" onClick={()=>deletePost(card?.id)}>DELETE</div>
+                            <div className="deleteButton" onClick={()=>saveEdit(card?.id)}>SAVE</div>
+                            <div className="deleteButton" onClick={()=>cancelEdit()}>CANCEL</div>
                         </div>
                         <div className="cardInfo">
-                            
-                            <div className="title">{card?.title.toLocaleUpperCase()}</div>
-                            <div className="text">{card?.body}</div>
+                            <label className="labelsEdit">Title</label>
+                            <input type="text" className="inputEdit" name="title" placeholder={card?.title.toLocaleUpperCase()} onChange={(e)=>edition(e)}/>
+                            <label className="labelsEdit">Text</label>
+                            <textarea className="textEdit" name="body" placeholder={card?.body} onChange={(e)=>edition(e)}></textarea>
                         </div>
-                            
                     </div>
-                    
                 ))}
+            </div> 
+        )
+
+    } else {
+
+        return (
+            <div className="containerPost">
+                <div className="adminOptions">
+                    <div className="getButton" onClick={()=>original()}>ORIGINAL</div>     
+                    <div className="getButton" onClick={()=>update()}>UPDATE</div>
+                         
+                    <input className="inputFilters" type="text" name="userId" placeholder="User ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
+                    <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
+                </div> 
+
+                <div className="boxPost">
+
+                    {partition?.map((card, index)=>(
+                        <div className="card" key={index}>
+                            <div className="postInfo">
+                                <div className="user" onClick={()=>filters("userId", card?.userId)}>{card?.userId}</div>
+                                
+                                <div className="deleteButton" onClick={()=>editPost(card?.id)}>EDIT</div>
+                                <div className="deleteButton" onClick={()=>deletePost(card?.id)}>DELETE</div>
+                            </div>
+                            <div className="cardInfo">
+                                
+                                <div className="title">{card?.title.toLocaleUpperCase()}</div>
+                                <div className="text">{card?.body}</div>
+                            </div>
+                                
+                        </div>
+                        
+                    ))}
+
+                </div>
 
             </div>
-
-        </div>
-    )
+        )
+    }
 }
 
 export default PostsPage;
