@@ -74,7 +74,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
     const filters = (opt:string, value:string) => {
 
         // WHEN DELETE SEARCH CONTENT
-        if (value === null){
+        if (!value){
             update();
         } else {
             switch(opt){                            // TO DO TITLE SEARCH???

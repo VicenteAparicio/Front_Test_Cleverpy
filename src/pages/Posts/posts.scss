@@ -17,22 +17,25 @@
         display: flex;
         margin-bottom: 1em;
     }
-    .getButton {
+    .getButton {display: flex;
+        justify-content: center;
+        align-items: center;
         margin-right:  1em;
-        padding: 1em;
+        padding: .6em;
         width: 4em;
         background-color: $backcolor;
         color: white;
         cursor: pointer;
         &:hover{
             background-color: $hovercolor;
+            
         }
     }
 
     .inputFilters{
         all: unset;
         border: .1em solid $backcolor;
-        padding: .9em;
+        padding: .5em;
         width: 4em;
         margin-right: 1em;
     }
