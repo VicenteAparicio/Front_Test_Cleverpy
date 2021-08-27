@@ -38,6 +38,12 @@
         padding: .5em;
         width: 4em;
         margin-right: 1em;
+        transition: 1s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        &:focus {
+            border: none;
+            transition: 1s cubic-bezier(0.86, 0, 0.07, 1);
+            border-bottom: .15em solid $backcolor;
+        }
     }
 }
 .boxPost{
