@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import IPage from '../../interfaces/page';
 import logging from '../../config/logging';
 
 const PostsPage: React.FunctionComponent<IPage> = props => {
-
-    // HOOK TO RECEIVE POSTS FROM AXIOS
-    const [post, setPost] = useState<IPost[]|[]>([]);
-
-    // HOOK TO FILTER POSTS FROM THE FIRST HOOK
-    const [filtPost, setFiltPost] = useState<IPost[]|[]>([]);
-    
-    useEffect(() => {
-        logging.info(`Loading ${props.name}`);
-        getPosts();
-    }, [props.name])
 
     interface IPost {
         id: number,
@@ -23,38 +12,72 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         body: string
     }
 
-    const deletePost = (arg:any) => {
-        setFiltPost(
-            filtPost.filter((item)=>(item?.id !== arg))
-        )
+    // HOOK TO RECEIVE POSTS FROM AXIOS
+    const [post, setPost] = useState<IPost[]|[]>([]);
+
+    // HOOK TO FILTER POSTS FROM THE FIRST HOOK
+    const [filtPost, setFiltPost] = useState<IPost[]|[]>([]);
+
+    // HOOK TO DELIVER
+    const [partition, setPartition] = useState<IPost[]|[]>([]);
+    // const [work, setWork] = useState<IPost[]|[]>([]);
+    
+    useEffect(() => {
+        logging.info(`Loading ${props.name}`);  
+    }, [props.name])
+
+    useEffect(()=>{
+        fetchPosts();
+        // workPosts();
+    },[])
+
+    // SET POSTS ON ORIGINAL HOOK
+    const fetchPosts = async () => {
+        const res = await getPosts()
+        setPost(res);
     }
 
+    // SET POSTS ON FILTER HOOK
     const filterCards = () => {
         setFiltPost(post);
     }
+    
+    // SET POSTS FROM FILTERED
+    // const workPosts = () => {
+    //     setWork(filtPost);
+    // }
 
-    // GET POSTS
-    const getPosts = async () => {
-
-        axios
-            .get(`https://jsonplaceholder.typicode.com/posts`)
-            .then((res)=>{
-                if(res){
-                    setPost(res.data)
-                }
-            })
-            .catch((error:string)=>{
-                console.log(error);
-            });
-            filterCards();
+    // DELETE POST
+    const deletePost = (arg:any) => {
+        
+        setFiltPost(
+            filtPost.filter((item)=>(item?.id !== arg))
+        )
+        setPartition(filtPost)
     }
+
+    
+
+    
+
+    // GET POSTS FROM API
+    const getPosts = async () => {
+        try {
+            let res = await axios.get(`https://jsonplaceholder.typicode.com/posts`)
+            return res.data;
+        } catch (err:any) {
+            console.log(err);
+        }
+    }
+
+
 
     const userPosts = (arg:any) => {
         console.log(arg)
-        if (arg == 0) {
-            console.log("hola")
-            setFiltPost(post);
+        if (arg == '') {
+            setFiltPost(partition);
         } else {
+            setFiltPost(partition);
             setFiltPost(
                 filtPost.filter((item)=>(item?.userId == arg))
             )
@@ -64,8 +87,9 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
     return (
         <div className="containerPost">
             <div className="adminOptions">
-                <div className="getButton" onClick={()=>getPosts()}>GetPost</div>   
-                <input className="userPosts" type="text" placeholder="User ID" defaultValue="0" onChange={(e)=>userPosts(e.target.value)}/>
+                <div className="getButton" onClick={()=>filterCards()}>ORIGINAL</div>   
+                <div className="getButton" onClick={()=>filterCards()}>FILTERS</div>   
+                <input className="userPosts" type="text" placeholder="User ID" defaultValue="" onChange={(e)=>userPosts(e.target.value)}/>
             </div> 
 
             <div className="boxPost">
