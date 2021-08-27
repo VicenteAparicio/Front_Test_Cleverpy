@@ -12,17 +12,19 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         body: string
     }
 
-    // HOOK TO RECEIVE POSTS FROM AXIOS
+    // HOOK TO RECEIVE POSTS FROM AXIOS (ORIGINAL DATABASE)
     const [post, setPost] = useState<IPost[]|[]>([]);
 
-    // HOOK TO FILTER POSTS FROM THE FIRST HOOK
+    // SAVE OBJECT ARRAY FOR WORK WITH HIM (EDITABLE DATABASE)
     const [filtPost, setFiltPost] = useState<IPost[]|[]>([]);
 
-    // HOOK TO DELIVER
+    // SAVE OBJECT TO PRINT WITH THE FILTERS USER IS WORKING ON
     const [partition, setPartition] = useState<IPost[]|[]>([]);
 
-    // HOOK TO EDITION
+    // HOOKS TO SAVE TITLE AND BODY EDITION
     const [edit, setEdit] = useState({title:'',body:''});
+
+    // HOOK TO ALLOW EDITION
     const [allowEdit, setAllowEdit] = useState<boolean>(false);
     
     useEffect(() => {
@@ -39,7 +41,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         try {
             let res = await axios.get(`https://jsonplaceholder.typicode.com/posts`)
             return res.data;
-        } catch (err:any) {
+        } catch (err) {
             console.log(err);
         }
     }
@@ -113,8 +115,10 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         setAllowEdit(false);
     }
 
+    // CANCEL EDITION
     const cancelEdit = () => {
         setAllowEdit(false);
+        update();
     }
 
     if (allowEdit === true) {
