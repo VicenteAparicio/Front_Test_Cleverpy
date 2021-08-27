@@ -62,28 +62,28 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
     }
     
     // DELETE POST 
-    const deletePost = (arg:any) => {
+    const deletePost = (arg:number) => {
         setFiltPost(
             filtPost.filter((item)=>(item?.id !== arg))
         )
     }
 
     // FILTERS 
-    const filters = (opt:string, value:any) => {
+    const filters = (opt:string, value:string) => {
 
         // WHEN DELETE SEARCH CONTENT
-        if (value === ''){
+        if (value === null){
             update();
         } else {
             switch(opt){                            // TO DO TITLE SEARCH???
                 case "userId":
                     setPartition(
-                        filtPost.filter((item)=>(item?.userId == value))
+                        filtPost.filter((item)=>(item?.userId === parseInt(value)))
                     )
                     break;
                 case "postId":
                     setPartition(
-                        filtPost.filter((item)=>(item?.id == value))
+                        filtPost.filter((item)=>(item?.id === parseInt(value)))
                     )
                     break;
                 default:
@@ -93,15 +93,15 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
     }
 
     // HANDLER EDITION INPUTS
-    const edition = (e:any) => {
-        setEdit({...edit, [e.target.name]: e.target.value});
+    const edition = (arg:string, value:string) => {
+        setEdit({...edit, [arg]: value});
     }
     
     // ACTIVATE EDITION MODE AND SEND SELECTED POST
     const editPost = (id:number) => {
         setAllowEdit(true);
         setPartition(
-            filtPost.filter((item)=>(item?.id == id))
+            filtPost.filter((item)=>(item?.id === id))
         )
     }
 
@@ -129,9 +129,9 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                         </div>
                         <div className="cardInfo">
                             <label className="labelsEdit">Title</label>
-                            <input type="text" className="inputEdit" name="title" placeholder={card?.title.toLocaleUpperCase()} onChange={(e)=>edition(e)}/>
+                            <input type="text" className="inputEdit" name="title" placeholder={card?.title.toLocaleUpperCase()} onChange={(e)=>edition(e.target.name, e.target.value)}/>
                             <label className="labelsEdit">Text</label>
-                            <textarea className="textEdit" name="body" placeholder={card?.body} onChange={(e)=>edition(e)}></textarea>
+                            <textarea className="textEdit" name="body" placeholder={card?.body} onChange={(e)=>edition(e.target.name, e.target.value)}></textarea>
                         </div>
                     </div>
                 ))}
@@ -158,7 +158,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                     {partition?.map((card, index)=>(
                         <div className="card" key={index}>
                             <div className="postInfo">
-                                <div className="user" onClick={()=>filters("userId", card?.userId)}>{card?.userId}</div>
+                                <div className="user" onClick={()=>filters("userId", card?.userId.toString())}>{card?.userId} | {card?.id}</div>
                                 
                                 <div className="deleteButton" onClick={()=>editPost(card?.id)}>EDIT</div>
                                 <div className="deleteButton" onClick={()=>deletePost(card?.id)}>DELETE</div>
