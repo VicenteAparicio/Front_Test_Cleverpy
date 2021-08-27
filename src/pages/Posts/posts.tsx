@@ -143,11 +143,14 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         return (
             <div className="containerPost">
                 <div className="adminOptions">
-                    <div className="getButton" onClick={()=>original()}>ORIGINAL</div>     
-                    <div className="getButton" onClick={()=>update()}>UPDATE</div>
-                         
-                    <input className="inputFilters" type="text" name="userId" placeholder="User ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
-                    <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
+                    <div className="buttons">
+                        <div className="getButton" onClick={()=>original()}>CLEAN</div>     
+                        <div className="getButton" onClick={()=>update()}>UPDATE</div>
+                    </div>
+                    <div className="inputsS">
+                        <input className="inputFilters" type="text" name="userId" placeholder="User ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
+                        <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
+                    </div>     
                 </div> 
 
                 <div className="boxPost">
