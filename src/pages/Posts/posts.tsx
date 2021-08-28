@@ -127,9 +127,9 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
             <div className="containerEdition">
                 {partition?.map((card, index)=>(
                     <div className="card" key={index}>
-                        <div className="postInfo">
-                            <div className="deleteButton" onClick={()=>saveEdit(card?.id)}>SAVE</div>
-                            <div className="deleteButton" onClick={()=>cancelEdit()}>CANCEL</div>
+                        <div className="boxButtons">
+                            <div className="cardButton" onClick={()=>saveEdit(card?.id)}>SAVE</div>
+                            <div className="cardButton" onClick={()=>cancelEdit()}>CANCEL</div>
                         </div>
                         <div className="cardInfo">
                             <label className="labelsEdit">Title</label>
@@ -147,11 +147,11 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         return (
             <div className="containerPost">
                 <div className="adminOptions">
-                    <div className="buttons">
-                        <div className="getButton" onClick={()=>original()}>CLEAN</div>     
-                        <div className="getButton" onClick={()=>update()}>UPDATE</div>
+                    <div className="boxButtons">
+                        <div className="adminButton" onClick={()=>original()}>CLEAN</div>     
+                        <div className="adminButton" onClick={()=>update()}>UPDATE</div>
                     </div>
-                    <div className="inputsS">
+                    <div className="boxButtons">
                         <input className="inputFilters" type="text" name="userId" placeholder="User ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
                         <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
                     </div>     
@@ -161,14 +161,12 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
                     {partition?.map((card, index)=>(
                         <div className="card" key={index}>
-                            <div className="postInfo">
-                                <div className="user" onClick={()=>filters("userId", card?.userId.toString())}>{card?.userId} | {card?.id}</div>
-                                
-                                <div className="deleteButton" onClick={()=>editPost(card?.id)}>EDIT</div>
-                                <div className="deleteButton" onClick={()=>deletePost(card?.id)}>DELETE</div>
+                            <div className="boxButtons">
+                                <div className="cardButton" onClick={()=>filters("userId", card?.userId.toString())}>{card?.userId} | {card?.id}</div>
+                                <div className="cardButton" onClick={()=>editPost(card?.id)}>EDIT</div>
+                                <div className="cardButton" onClick={()=>deletePost(card?.id)}>DELETE</div>
                             </div>
                             <div className="cardInfo">
-                                
                                 <div className="title">{card?.title.toLocaleUpperCase()}</div>
                                 <div className="text">{card?.body}</div>
                             </div>

@@ -1,7 +1,25 @@
-$backcolor: teal; 
-$hovercolor: darkslategray; 
+// $backcolor: #F59871;
+// $shadow: #A8512C; 
+// $shadowhover: #1EA896; 
+// $hover: #71F5E3;
+
+$backcolor: #82B2B5;
+$shadow: #273536; 
+$shadowhover: #547375; 
+$hover: #9ED7DB;
 
 .check{
-    color: darkslategray;
-    color: darkorange;
+    color: #1EA896;
+    color: #D1FFF9;
+    color: #71F5E3;
+    color: #A8512C;
+    color: #F59871;
+}
+
+.check2{
+    color: #82B2B5;
+    color: #547375;
+    color: #B1F1F5;
+    color: #273536;
+    color: #9ED7DB;
 }

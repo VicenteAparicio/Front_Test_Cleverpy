@@ -4,17 +4,21 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    // background-color: rgb(255, 44, 100);
-    background-color: white;
-    box-shadow: 0 .3em 0 0 $backcolor;
+    background-color: $backcolor;
+    box-shadow: 0 .3em 0 0 $shadow;
+    transition: .5s cubic-bezier(.26,.08,.33,1);
+
+    &:hover {
+        box-shadow: 0 .3em 0 0 $shadowhover;
+    }
 
     .links {
         text-decoration: none;
-        color: $backcolor;
+        color: white;
         padding: 1em;
+        transition: .5s cubic-bezier(.26,.08,.33,1);
         &:hover{
-            color: cyan;
-            
+            background-color: $shadowhover;            
         }
     }
 }
