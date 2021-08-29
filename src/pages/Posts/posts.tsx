@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import IPage from '../../interfaces/page';
-import logging from '../../config/logging';
+import IPost from '../../interfaces/post';
 
 const PostsPage: React.FunctionComponent<IPage> = props => {
-
-    interface IPost {
-        id: number,
-        userId: number,
-        title: string,
-        body: string
-    }
 
     // HOOK TO RECEIVE POSTS FROM AXIOS (ORIGINAL DATABASE)
     const [post, setPost] = useState<IPost[]|[]>([]);
@@ -26,10 +19,6 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
     // HOOK TO ALLOW EDITION
     const [allowEdit, setAllowEdit] = useState<boolean>(false);
-    
-    useEffect(() => {
-        logging.info(`Loading ${props.name}`);  
-    }, [props.name])
 
     useEffect(()=>{
         fetchPosts();
@@ -167,8 +156,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                         <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
                         <input className="inputFilters" type="text" name="title" placeholder="Title" onChange={(e)=>filters(e.target.name, e.target.value)}/>
                     </div>     
-                </div> 
-
+                </div>
                 <div className="boxPost">
                     {partition?.map((card, index)=>(
                         <div className="card" key={index}>
