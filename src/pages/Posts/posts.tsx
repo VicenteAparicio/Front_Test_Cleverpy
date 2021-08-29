@@ -88,6 +88,16 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                         filtPost.filter((item)=>(item?.id === parseInt(value)))
                     )
                     break;
+                case "title":
+                    if (value.length>2){
+                        setPartition(
+                            filtPost.filter ((item) => 
+                                item.title.toLowerCase().includes(value.toLocaleLowerCase()))
+                        )   
+                    }
+                    break;
+                    
+
                 default:
                     break;
             }
@@ -122,9 +132,10 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
     }
 
     if (allowEdit === true) {
-
+        // EDITION RETURN
         return (
             <div className="containerEdition">
+
                 {partition?.map((card, index)=>(
                     <div className="card" key={index}>
                         <div className="boxButtons">
@@ -139,13 +150,15 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                         </div>
                     </div>
                 ))}
+                
             </div> 
         )
 
     } else {
-
+        // DEFAULT RETURN
         return (
             <div className="containerPost">
+
                 <div className="adminOptions">
                     <div className="boxButtons">
                         <div className="adminButton" onClick={()=>original()}>CLEAN</div>     
@@ -154,11 +167,11 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                     <div className="boxButtons">
                         <input className="inputFilters" type="text" name="userId" placeholder="User ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
                         <input className="inputFilters" type="text" name="postId" placeholder="Post ID" onChange={(e)=>filters(e.target.name, e.target.value)}/>
+                        <input className="inputFilters" type="text" name="title" placeholder="Title" onChange={(e)=>filters(e.target.name, e.target.value)}/>
                     </div>     
                 </div> 
 
                 <div className="boxPost">
-
                     {partition?.map((card, index)=>(
                         <div className="card" key={index}>
                             <div className="boxButtons">
@@ -170,11 +183,8 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                                 <div className="title">{card?.title.toLocaleUpperCase()}</div>
                                 <div className="text">{card?.body}</div>
                             </div>
-                                
                         </div>
-                        
                     ))}
-
                 </div>
 
             </div>
