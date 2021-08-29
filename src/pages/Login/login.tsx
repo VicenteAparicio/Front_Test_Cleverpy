@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import IPage from '../../interfaces/page';
 import logging from '../../config/logging';
-import './home.scss';
+import './login.scss';
 
-const HomePage: React.FunctionComponent<IPage> = props => {
+const LoginPage: React.FunctionComponent<IPage> = props => {
     useEffect(() => {
         logging.info(`Loading ${props.name}`);
     }, [props.name])
@@ -15,4 +15,4 @@ const HomePage: React.FunctionComponent<IPage> = props => {
     )
 }
 
-export default HomePage;
+export default LoginPage;

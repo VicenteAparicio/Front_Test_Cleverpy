@@ -77,7 +77,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
         if (!value){
             update();
         } else {
-            switch(opt){                            // TO DO TITLE SEARCH???
+            switch(opt){
                 case "userId":
                     setPartition(
                         filtPost.filter((item)=>(item?.userId === parseInt(value)))
@@ -96,8 +96,6 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
                         )   
                     }
                     break;
-                    
-
                 default:
                     break;
             }
