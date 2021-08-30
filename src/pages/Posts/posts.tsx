@@ -3,6 +3,8 @@ import axios from 'axios';
 import IPage from '../../interfaces/page';
 import IPost from '../../interfaces/post';
 
+
+
 const PostsPage: React.FunctionComponent<IPage> = props => {
 
     // HOOK TO RECEIVE POSTS FROM AXIOS (ORIGINAL DATABASE)
