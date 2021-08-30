@@ -1,6 +1,6 @@
 const config = {
     defaults: {
-        namespace: 'Application'
+        namespace: 'App'
     }
 }
 

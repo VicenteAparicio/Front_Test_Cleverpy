@@ -4,32 +4,70 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 1em 0;
 }
 .adminOptions{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items:flex-start;
     margin-top: 1em;
 
-    .getButton {
+
+    .adminButton {display: flex;
+        justify-content: center;
+        align-items: center;
         margin-right:  1em;
-        padding: 1em;
-        background-color: $backcolor;
+        padding: .6em;
+        width: 4em;
+        background-color: $base;
         color: white;
+        border-radius: .2em;
         cursor: pointer;
+        transition: .3s cubic-bezier(.26,.08,.33,1);
+        box-shadow: .3em .3em 0 0 $shadow;
         &:hover{
-            background-color: $hovercolor;
+            background-color: $hover;
+            font-weight: bold;
+            box-shadow: .2em .2em 0 0 $shadow;
+        }
+        &:active{
+            background-color: $base;
         }
     }
 
     .inputFilters{
         all: unset;
-        border: .1em solid $backcolor;
-        padding: .9em;
+        background-color:  white;
+        padding: .6em;
+        border-radius: .2em;
         width: 4em;
         margin-right: 1em;
+        transition: .3s cubic-bezier(.26,.08,.33,1);
+        box-shadow: .3em .3em 0 0 $shadow;
+        color: $base;
+        &:hover{
+            box-shadow: .2em .2em 0 0 $shadow;
+        }
+        &:focus {
+            padding: .6em;
+            box-shadow: .2em .2em 0 0 $base;
+            border: none;
+            animation: cardAnimation 1s infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease-in-out;
+        }
+        
     }
+
+    @keyframes cardAnimation {
+        from {box-shadow: .1em .1em 0 0 $shadow}
+        to {box-shadow: .5em .5em 0 0 $shadow}
+    }
+    
 }
+
 .boxPost{
     display: flex;
     flex-direction: row;
@@ -42,60 +80,58 @@
     display: flex;
     flex-direction: column;
     width: 15em;
-    padding: 1em;
-    background-color: $backcolor;
+    border-radius: .2em;
+    padding: 1em 1em 1.5em 1em;
+    background-color: $base;
+    box-shadow: .3em .3em 0 0 $shadow;
     margin: 0 1em 1em 0;
-
+    transition: .5s cubic-bezier(.26,.08,.33,1);
+    &:hover{
+        z-index: 99;
+        transform: scale(105%);
+        background-color: $hover;
+    }
 
     .title {
         font-weight: bold;
         color: white;
     }
 
-    .user {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1em;
-        width: 3em;
-        background-color: white;
-        border-radius: .5em;
-        font-size: .8em;
-        color: black;
-        cursor: pointer;
-        &:hover{
-            background-color: $hovercolor;
-            color: white;
-        }
-    }
-
     .text{
         color: white;
     }
-    
+
 }
 
-.postInfo{
+.boxButtons{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 1em;
-}
 
-.deleteButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3em;
-    border-radius: .5em;
-    padding: 1em;
-    font-size: .8em;
-    background-color: white;
-    cursor: pointer;
-    color:black;
-    &:hover{
-        background-color: $hovercolor;
-        color: white
+    .cardButton{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3.5em;
+        padding: 1em; 
+        border-radius: .2em;
+        font-size: .8em;
+        background-color: white;
+        cursor: pointer;
+        color:$base;
+        transition: .3s cubic-bezier(.26,.08,.33,1);
+        &:hover{
+            background-color: $base;
+            // box-shadow: 0 .2em 0 0 $hover;
+            font-weight: bold;
+            color: white;
+        }
+        &:active{
+            background-color: $shadow;
+            // box-shadow: .2em .2em 0 0 $base;
+            
+        }
     }
 }
 
@@ -105,24 +141,27 @@
     justify-content: center;
     align-items: center;
     height: 80vh;
+
+    .inputEdit {
+        all: unset;
+        display: flex;
+        background-color: white;
+        width: 93%;
+        padding: .5em;
+        margin-bottom: 1em;
+        margin-top: .5em;
+    }
+    
+    .textEdit {
+        padding: .5em;
+        width: 93%;
+        height: 20em;
+        margin-top: .5em;
+    }
+    
+    .labelsEdit {
+        color: white;
+    }
 }
 
-.inputEdit {
-    all: unset;
-    display: flex;
-    background-color: white;
-    width: 93%;
-    padding: .5em;
-    margin-bottom: 1em;
-}
-
-.textEdit {
-    padding: .5em;
-    width: 93%;
-    height: 20em;
-}
-
-.labelsEdit {
-    color: white;
-}
 
