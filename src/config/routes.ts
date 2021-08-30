@@ -6,19 +6,19 @@ import LoginPage from '../pages/Login/login';
 const routes: IRoute[] = [
     {
         path: '/',
-        name: 'Home Page',
+        name: 'Home',
         component: HomePage,
         exact: true
     },
     {
         path: '/login',
-        name: 'Login Page',
+        name: 'Login',
         component: LoginPage,
         exact: true
     },
     {
         path: '/posts',
-        name: 'Posts Page',
+        name: 'Posts',
         component: PostsPage,
         exact: true
     },

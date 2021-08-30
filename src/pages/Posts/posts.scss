@@ -15,9 +15,11 @@
     margin-top: 1em;
 
 
-    .adminButton {display: flex;
+    .adminButton {
+        display: flex;
         justify-content: center;
         align-items: center;
+        font-size: .8em;
         margin-right:  1em;
         padding: .6em;
         width: 4em;
@@ -40,6 +42,7 @@
     .inputFilters{
         all: unset;
         background-color:  white;
+        font-size: .8em;
         padding: .6em;
         border-radius: .2em;
         width: 4em;
@@ -79,12 +82,13 @@
 .card{
     display: flex;
     flex-direction: column;
-    width: 15em;
+    width: 12em;
+    
     border-radius: .2em;
     padding: 1em 1em 1.5em 1em;
     background-color: $base;
     box-shadow: .3em .3em 0 0 $shadow;
-    margin: 0 1em 1em 0;
+    margin: 0 1.5em 1.5em 0;
     transition: .5s cubic-bezier(.26,.08,.33,1);
     &:hover{
         z-index: 99;
@@ -95,10 +99,12 @@
     .title {
         font-weight: bold;
         color: white;
+        font-size: .9em;
     }
 
     .text{
         color: white;
+        font-size: .8em;
     }
 
 }
@@ -113,8 +119,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: .9em;
         width: 3.5em;
-        padding: 1em; 
+        padding: .5em; 
         border-radius: .2em;
         font-size: .8em;
         background-color: white;
