@@ -3,11 +3,57 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     width: 100%;
 }
 
 .titles {
     color: orange;
     font-size: 3em;
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    padding: 2em 2em 4em 2em;
+    margin-top: 2em;
+    background-color: $base;
+    border-radius: .2em;
+    transition: .3s cubic-bezier(.26,.08,.33,1);
+    box-shadow: .3em .3em 0 0 $shadow;
+    
+    color: $shadow;
+    
+    .inputBox{
+        display: flex;
+        flex-direction: column;
+        width: 14em;
+        height: 4em;
+        margin-bottom: 1em;
+    }
+    .inputsLogin {
+        all:unset;
+        margin: .5em 0 1.5em;
+        border-bottom: .15em solid $backcolor;
+        transition: .3s cubic-bezier(.26,.08,.33,1);
+        padding-bottom: .2em;
+        color: white;
+        &:last-child{
+            margin-bottom: 0;
+        }
+        &::placeholder{
+            color:$backcolor;
+        }
+        &:hover  {
+            padding-bottom: .5em;
+            border-bottom: .15em solid $shadow;
+            &::placeholder{
+                color:none;
+            }
+        }
+        &:focus{
+            padding-bottom: .5em;
+            border-bottom: .15em solid $shadow;
+        }
+    }
 }
