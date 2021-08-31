@@ -148,7 +148,7 @@ const PostsPage: React.FunctionComponent<IPage> = props => {
 
                 <div className="adminOptions">
                     <div className="boxButtons">
-                        <div className="adminButton" onClick={()=>original()}>CLEAN</div>     
+                        <div className="adminButton" onClick={()=>original()}>GET</div>     
                         <div className="adminButton" onClick={()=>update()}>UPDATE</div>
                     </div>
                     <div className="boxButtons">
