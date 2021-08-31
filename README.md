@@ -37,6 +37,8 @@ Es algo básico y sencillo sin ningún tipo de protección. Para montar una buen
 
 1. Visor de todos los pots
 
+Pulsa el botón GET para obtener los posts de la API.
+
 <img src="./src/assets/imgReadme/01.png" style="width: 100%; height: auto">
 
 <br><br>
